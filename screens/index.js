@@ -3,6 +3,7 @@ import CalendarScreen from "./CalendarScreen";
 import AddWorkoutScreen from "./AddWorkoutScreen";
 import MapScreen from "./MapScreen";
 import ProfileScreen from "./ProfileScreen";
+import SettingsScreen from "./SettingsScreen";
 
 export {
   HomeScreen,
@@ -10,4 +11,5 @@ export {
   AddWorkoutScreen,
   MapScreen,
   ProfileScreen,
+  SettingsScreen,
 };
