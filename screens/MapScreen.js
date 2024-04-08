@@ -47,6 +47,7 @@ export default function MapScreen() {
             <Marker
                 title='You are here'
                 coordinate={{ latitude: location.latitude, longitude: location.longitude }}
+                image={require('../assets/BlueMarkOnMap.png')}
             />
         </MapView>
     );

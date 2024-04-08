@@ -1,0 +1,3 @@
+#MapScreen#
+-npx expo install react-native-maps
+- npx expo install expo-location
