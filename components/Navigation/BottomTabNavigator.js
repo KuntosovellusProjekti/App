@@ -47,13 +47,8 @@ const BottomTabNavigator = ({ navigation }) => { // Accept navigation prop
       </View>
       <Tab.Navigator screenOptions={screenOptions}>
         <Tab.Screen
-          name="Home"
-          component={HomeScreen}
-          options={{ /* Your options here */ }}
-        />
-        <Tab.Screen
-          name="Calendar"
-          component={CalendarScreen}
+          name="Map"
+          component={MapScreen}
           options={{ /* Your options here */ }}
         />
         <Tab.Screen
@@ -62,8 +57,13 @@ const BottomTabNavigator = ({ navigation }) => { // Accept navigation prop
           options={{ /* Your options here */ }}
         />
         <Tab.Screen
-          name="Map"
-          component={MapScreen}
+          name="Home"
+          component={HomeScreen}
+          options={{ /* Your options here */ }}
+        />
+        <Tab.Screen
+          name="Calendar"
+          component={CalendarScreen}
           options={{ /* Your options here */ }}
         />
         <Tab.Screen
