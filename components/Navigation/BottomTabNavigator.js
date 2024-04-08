@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, View } from "react-native";
+import { Text, View, TouchableOpacity } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import {
   HomeScreen,
@@ -7,13 +7,14 @@ import {
   AddWorkoutScreen,
   MapScreen,
   ProfileScreen,
+  SettingsScreen,
 } from "../../screens";
 
 const Tab = createBottomTabNavigator();
 
 const screenOptions = {
   tabBarShowLabel: false,
-  headerShown: false,
+  headerShown: true,
   tabBarStyle: {
     position: "absolute",
     bottom: 0,
@@ -25,130 +26,53 @@ const screenOptions = {
   },
 };
 
-const BottomTabNavigator = () => {
+const BottomTabNavigator = ({ navigation }) => { // Accept navigation prop
+  const currentRouteName = navigation ? navigation.getCurrentRoute()?.name : null;
+
   return (
-    <Tab.Navigator screenOptions={screenOptions}>
-      <Tab.Screen
-        name="Map"
-        component={MapScreen}
-        options={{
-          tabBarIcon: ({ focused }) => (
-            <View
-              style={{
-                alignItems: "center",
-                justifyContent: "center",
-                top: 10,
-              }}
-            >
-              <Text
-                style={{
-                  color: focused ? "#e32f45" : "#748c94",
-                  fontSize: 12,
-                }}
-              >
-                MAP
-              </Text>
-            </View>
-          ),
+    <>
+      <View
+        style={{
+          flexDirection: "row",
+          justifyContent: "space-between",
+          backgroundColor: "#ffffff",
+          height: 60,
+          alignItems: "center",
+          borderBottomWidth: 1,
+          borderBottomColor: "#ccc",
+          paddingHorizontal: 20,
         }}
-      />
-      <Tab.Screen
-        name="Add Workout"
-        component={AddWorkoutScreen}
-        options={{
-          tabBarIcon: ({ focused }) => (
-            <View
-              style={{
-                alignItems: "center",
-                justifyContent: "center",
-                top: 10,
-              }}
-            >
-              <Text
-                style={{
-                  color: focused ? "#e32f45" : "#748c94",
-                  fontSize: 12,
-                }}
-              >
-                ADD WORKOUT
-              </Text>
-            </View>
-          ),
-        }}
-      />
-      <Tab.Screen
-        name="Home"
-        component={HomeScreen}
-        options={{
-          tabBarIcon: ({ focused }) => (
-            <View
-              style={{
-                alignItems: "center",
-                justifyContent: "center",
-                top: 10,
-              }}
-            >
-              <Text
-                style={{
-                  color: focused ? "#e32f45" : "#748c94",
-                  fontSize: 12,
-                }}
-              >
-                HOME
-              </Text>
-            </View>
-          ),
-        }}
-      />
-      <Tab.Screen
-        name="Calendar"
-        component={CalendarScreen}
-        options={{
-          tabBarIcon: ({ focused }) => (
-            <View
-              style={{
-                alignItems: "center",
-                justifyContent: "center",
-                top: 10,
-              }}
-            >
-              <Text
-                style={{
-                  color: focused ? "#e32f45" : "#748c94",
-                  fontSize: 12,
-                }}
-              >
-                CALENDAR
-              </Text>
-            </View>
-          ),
-        }}
-      />
-      <Tab.Screen
-        name="Profile"
-        component={ProfileScreen}
-        options={{
-          tabBarIcon: ({ focused }) => (
-            <View
-              style={{
-                alignItems: "center",
-                justifyContent: "center",
-                top: 10,
-              }}
-            >
-              <Text
-                style={{
-                  color: focused ? "#e32f45" : "#748c94",
-                  fontSize: 12,
-                }}
-              >
-                PROFILE
-              </Text>
-            </View>
-          ),
-        }}
-      />
-    </Tab.Navigator>
+      >
+        <Text>{currentRouteName}</Text>
+      </View>
+      <Tab.Navigator screenOptions={screenOptions}>
+        <Tab.Screen
+          name="Home"
+          component={HomeScreen}
+          options={{ /* Your options here */ }}
+        />
+        <Tab.Screen
+          name="Calendar"
+          component={CalendarScreen}
+          options={{ /* Your options here */ }}
+        />
+        <Tab.Screen
+          name="Add Workout"
+          component={AddWorkoutScreen}
+          options={{ /* Your options here */ }}
+        />
+        <Tab.Screen
+          name="Map"
+          component={MapScreen}
+          options={{ /* Your options here */ }}
+        />
+        <Tab.Screen
+          name="Profile"
+          component={ProfileScreen}
+          options={{ /* Your options here */ }}
+        />
+      </Tab.Navigator>
+    </>
   );
 };
 
