@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, View, TouchableOpacity } from "react-native";
+import { Text, View, Image } from "react-native"; // Import Image from react-native
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import {
   HomeScreen,
@@ -7,27 +7,40 @@ import {
   AddWorkoutScreen,
   MapScreen,
   ProfileScreen,
-  SettingsScreen,
 } from "../../screens";
+
+// Import your icons
+import BlueAddIcon from "../../assets/Icons/BlueAdd.png";
+import BlueCalendarIcon from "../../assets/Icons/BlueCalendar.png";
+import BlueHomeIcon from "../../assets/Icons/BlueHome.png";
+import BlueMapIcon from "../../assets/Icons/BlueMap.png";
+import BlueProfileIcon from "../../assets/Icons/BlueProfile.png";
+import GreyAddIcon from "../../assets/Icons/GreyAdd.png";
+import GreyCalendarIcon from "../../assets/Icons/GreyCalendar.png";
+import GreyHomeIcon from "../../assets/Icons/GreyHome.png";
+import GreyProfileIcon from "../../assets/Icons/GreyProfile.png";
+import MapGreyIcon from "../../assets/Icons/MapGrey.png";
 
 const Tab = createBottomTabNavigator();
 
-const screenOptions = {
-  tabBarShowLabel: false,
-  headerShown: true,
-  tabBarStyle: {
-    position: "absolute",
-    bottom: 0,
-    right: 0,
-    left: 0,
-    elevation: 0,
-    height: 60,
-    backgroundColor: "#ffffff",
-  },
-};
-
-const BottomTabNavigator = ({ navigation }) => { // Accept navigation prop
-  const currentRouteName = navigation ? navigation.getCurrentRoute()?.name : null;
+const BottomTabNavigator = ({ navigation }) => {
+  // Function to determine the icon for each tab based on the current route
+  const getIcon = (routeName, focused) => {
+    switch (routeName) {
+      case "Map":
+        return focused ? BlueMapIcon : MapGreyIcon;
+      case "Add Workout":
+        return focused ? BlueAddIcon : GreyAddIcon;
+      case "Home":
+        return focused ? BlueHomeIcon : GreyHomeIcon;
+      case "Calendar":
+        return focused ? BlueCalendarIcon : GreyCalendarIcon;
+      case "Profile":
+        return focused ? BlueProfileIcon : GreyProfileIcon;
+      default:
+        return null;
+    }
+  };
 
   return (
     <>
@@ -43,34 +56,23 @@ const BottomTabNavigator = ({ navigation }) => { // Accept navigation prop
           paddingHorizontal: 20,
         }}
       >
-        <Text>{currentRouteName}</Text>
+        {/* Display the current route name */}
+        <Text>{navigation ? navigation.getCurrentRoute()?.name : null}</Text>
       </View>
-      <Tab.Navigator screenOptions={screenOptions}>
-        <Tab.Screen
-          name="Map"
-          component={MapScreen}
-          options={{ /* Your options here */ }}
-        />
-        <Tab.Screen
-          name="Add Workout"
-          component={AddWorkoutScreen}
-          options={{ /* Your options here */ }}
-        />
-        <Tab.Screen
-          name="Home"
-          component={HomeScreen}
-          options={{ /* Your options here */ }}
-        />
-        <Tab.Screen
-          name="Calendar"
-          component={CalendarScreen}
-          options={{ /* Your options here */ }}
-        />
-        <Tab.Screen
-          name="Profile"
-          component={ProfileScreen}
-          options={{ /* Your options here */ }}
-        />
+      <Tab.Navigator
+        screenOptions={({ route }) => ({
+          tabBarIcon: ({ focused }) => {
+            // Get the icon for the current route
+            const icon = getIcon(route.name, focused);
+            return icon && <Image source={icon} style={{ width: 24, height: 24 }} />;
+          },
+        })}
+      >
+        <Tab.Screen name="Map" component={MapScreen} />
+        <Tab.Screen name="Add Workout" component={AddWorkoutScreen} />
+        <Tab.Screen name="Home" component={HomeScreen} />
+        <Tab.Screen name="Calendar" component={CalendarScreen} />
+        <Tab.Screen name="Profile" component={ProfileScreen} />
       </Tab.Navigator>
     </>
   );
