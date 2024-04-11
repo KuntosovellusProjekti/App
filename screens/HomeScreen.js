@@ -64,10 +64,11 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'flex-end',
     alignItems: 'center',
-    borderWidth: 4,
+    borderWidth: 0,
     borderColor: '#0077B6',
-    borderRadius: 15,
+    borderRadius: 5,
     backgroundColor: '#ffffff',
+
   },
   infoContainer: {
     flexDirection: 'row',
@@ -108,7 +109,7 @@ const styles = StyleSheet.create({
     paddingVertical: 16,
     paddingHorizontal: 32,
     borderRadius: 5,
-    marginBottom: 100,
+    marginBottom: 75,
     width: '80%',
     height: 60,
   },
@@ -126,7 +127,7 @@ const styles = StyleSheet.create({
     height: '5%',
     maxHeight: 70,
     width: '80%',
-    margin: 50,
+    margin: 20,
   },
   liftedKilos: {
     backgroundColor: "#ffffff",
