@@ -15,6 +15,8 @@ import GreyCalendarIcon from "../../assets/Icons/GreyCalendar.png";
 import GreyHomeIcon from "../../assets/Icons/GreyHome.png";
 import GreyProfileIcon from "../../assets/Icons/GreyProfile.png";
 import MapGreyIcon from "../../assets/Icons/MapGrey.png";
+import BlueSettingsIcon from "../../assets/Icons/BlueSettings.png";
+import GreySettingsIcon from "../../assets/Icons/GreySettings.png";
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -71,7 +73,7 @@ const Navigation = () => {
           options={({ navigation }) => ({
             headerRight: () => (
               <TouchableOpacity style={{ marginRight: 10 }} onPress={() => navigation.navigate('Settings')}>
-                <Text>Settings</Text>
+                <Image source={GreySettingsIcon} style={{ width: 24, height: 24 }} />
               </TouchableOpacity>
             ),
           })}
@@ -82,7 +84,7 @@ const Navigation = () => {
           options={{
             headerRight: () => (
               <TouchableOpacity style={{ marginRight: 10 }}>
-                <Text>Settings</Text>
+                <Image source={BlueSettingsIcon} style={{ width: 24, height: 24 }} />
               </TouchableOpacity>
             ),
           }}
