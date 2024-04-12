@@ -1,0 +1,7 @@
+#MapScreen#
+-npx expo install react-native-maps
+- npx expo install expo-location
+
+#HomeScreen#
+
+- npx expo install @react-native-async-storage/async-storage
