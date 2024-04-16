@@ -7,7 +7,6 @@ import {
   Text,
   View,
   Image,
-  styles,
   StyleSheet,
 } from "react-native";
 import {
@@ -125,6 +124,7 @@ const Navigation = () => {
             </TouchableOpacity>
           )}
         </Stack.Screen>
+        <Stack.Screen name="AddWorkout" component={AddWorkoutScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
