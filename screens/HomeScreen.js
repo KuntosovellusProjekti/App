@@ -1,10 +1,9 @@
 import React from 'react';
 import { StyleSheet, View, TouchableOpacity, Text, FlatList } from 'react-native';
+import { useNavigation } from '@react-navigation/native'; // Tuodaan useNavigation -koukku navigointitoimintojen käyttöön
 
-export default function App() {
-  const startTracking = () => {
-    // Tähän voit lisätä aloitustoiminnallisuuden
-  };
+export default function HomeScreen() {
+  const navigation = useNavigation(); // Alustetaan navigation-koukku
 
   const days = ['Ma', 'Ti', 'Ke', 'To', 'Pe', 'La', 'Su'];
 
@@ -31,6 +30,10 @@ export default function App() {
     </View>
   );
 
+  const handleStartTraining = () => {
+    navigation.navigate('TrackingScreen'); // Navigoidaan "TrackingScreen"-näytölle painikkeen painalluksen yhteydessä
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.liftedKilos}>
@@ -51,12 +54,11 @@ export default function App() {
           <Text style={styles.trainingInfoText}>Teksti 2</Text>
         </View>
       </View>
-      <TouchableOpacity onPress={startTracking} style={styles.button}>
+      <TouchableOpacity name = "SiirryTracking" onPress={() => navigation.navigate ('TrackingScreen')} style={styles.button}>
         <Text style={styles.buttonText}>Aloita harjoitus</Text>
       </TouchableOpacity>
     </View>
   );
-  
 }
 
 const styles = StyleSheet.create({
@@ -68,7 +70,6 @@ const styles = StyleSheet.create({
     borderColor: '#0077B6',
     borderRadius: 5,
     backgroundColor: '#ffffff',
-
   },
   infoContainer: {
     flexDirection: 'row',
@@ -144,5 +145,4 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginTop: 30,
   },
-  
 });

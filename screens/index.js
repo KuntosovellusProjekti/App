@@ -4,6 +4,8 @@ import AddWorkoutScreen from "./AddWorkoutScreen";
 import MapScreen from "./MapScreen";
 import ProfileScreen from "./ProfileScreen";
 import SettingsScreen from "./SettingsScreen";
+import TrackingScreen from "./TrackingScreen";
+
 
 export {
   HomeScreen,
@@ -12,4 +14,5 @@ export {
   MapScreen,
   ProfileScreen,
   SettingsScreen,
+  TrackingScreen,
 };
