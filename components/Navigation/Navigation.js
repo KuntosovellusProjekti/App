@@ -2,7 +2,7 @@ import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
-import { TouchableOpacity, Text, View, Image } from 'react-native';
+import { TouchableOpacity, Image } from 'react-native';
 import { HomeScreen, CalendarScreen, AddWorkoutScreen, MapScreen, ProfileScreen, SettingsScreen } from '../../screens';
 
 import BlueAddIcon from "../../assets/Icons/BlueAdd.png";
@@ -10,13 +10,13 @@ import BlueCalendarIcon from "../../assets/Icons/BlueCalendar.png";
 import BlueHomeIcon from "../../assets/Icons/BlueHome.png";
 import BlueMapIcon from "../../assets/Icons/BlueMap.png";
 import BlueProfileIcon from "../../assets/Icons/BlueProfile.png";
+import BlueSettingsIcon from "../../assets/Icons/BlueSettings.png";
 import GreyAddIcon from "../../assets/Icons/GreyAdd.png";
 import GreyCalendarIcon from "../../assets/Icons/GreyCalendar.png";
 import GreyHomeIcon from "../../assets/Icons/GreyHome.png";
 import GreyProfileIcon from "../../assets/Icons/GreyProfile.png";
-import MapGreyIcon from "../../assets/Icons/MapGrey.png";
-import BlueSettingsIcon from "../../assets/Icons/BlueSettings.png";
 import GreySettingsIcon from "../../assets/Icons/GreySettings.png";
+import MapGreyIcon from "../../assets/Icons/MapGrey.png";
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -28,7 +28,6 @@ const BottomTabNavigator = () => {
         tabBarIcon: ({ focused }) => {
           let iconSource;
 
-          // Determine which icon to use based on focus state and current route
           switch (route.name) {
             case 'Map':
               iconSource = focused ? BlueMapIcon : MapGreyIcon;
@@ -49,7 +48,6 @@ const BottomTabNavigator = () => {
               break;
           }
 
-          // Render the icon
           return <Image source={iconSource} style={{ width: 24, height: 24 }} />;
         },
       })}
@@ -70,7 +68,7 @@ const Navigation = () => {
         <Stack.Screen 
           name="KuntoSovellus" 
           component={BottomTabNavigator}
-          options={({ navigation }) => ({
+          options={({ navigation }) => ({ // Pass navigation object as parameter
             headerRight: () => (
               <TouchableOpacity style={{ marginRight: 10 }} onPress={() => navigation.navigate('Settings')}>
                 <Image source={GreySettingsIcon} style={{ width: 24, height: 24 }} />
@@ -81,13 +79,13 @@ const Navigation = () => {
         <Stack.Screen 
           name="Settings" 
           component={SettingsScreen}
-          options={{
+          options={({ navigation }) => ({ // Pass navigation object as parameter
             headerRight: () => (
-              <TouchableOpacity style={{ marginRight: 10 }}>
+              <TouchableOpacity style={{ marginRight: 10 }} onPress={() => navigation.goBack()}>
                 <Image source={BlueSettingsIcon} style={{ width: 24, height: 24 }} />
               </TouchableOpacity>
             ),
-          }}
+          })}
         />
       </Stack.Navigator>
     </NavigationContainer>
