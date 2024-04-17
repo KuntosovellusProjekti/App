@@ -1,0 +1,87 @@
+import { StyleSheet } from "react-native";
+
+const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      justifyContent: 'flex-end',
+      alignItems: 'center',
+      borderWidth: 0,
+      borderColor: '#0077B6',
+      borderRadius: 5,
+      backgroundColor: '#ffffff',
+    },
+    infoContainer: {
+      flexDirection: 'row',
+      marginBottom: 20,
+      textAlign: 'center',
+    },
+    dayContainer: {
+      justifyContent: 'center',
+      alignItems: 'center',
+      marginHorizontal: 10,
+    },
+    dayText: {
+      fontSize: 18,
+      fontWeight: 'bold',
+    },
+    dayOfWeekText: {
+      fontSize: 16,
+    },
+    trainingInfoBox: {
+      backgroundColor: 'ffffff',
+      borderWidth: 2,
+      borderColor: '#0077B6',
+      borderRadius: 5,
+      paddingVertical: 8,
+      paddingHorizontal: 16,
+      marginHorizontal: 5,
+      width: '40%',
+      height: 120,
+      textAlign: 'center',
+    },
+    trainingInfoText: {
+      fontSize: 16,
+      fontWeight: 'bold',
+      color: 'black',
+    },
+    button: {
+      backgroundColor: '#0077B6',
+      paddingVertical: 16,
+      paddingHorizontal: 32,
+      borderRadius: 5,
+      marginBottom: 75,
+      width: '80%',
+      height: 60,
+    },
+    buttonText: {
+      color: 'white',
+      fontSize: 18,
+      fontWeight: 'bold',
+      textAlign: 'center',
+    },
+    WeekCalendar: {
+      backgroundColor: "#ffffff",
+      borderWidth: 2,
+      borderColor: "#0077B6",
+      borderRadius: 5,
+      height: '5%',
+      maxHeight: 70,
+      width: '80%',
+      margin: 20,
+    },
+    liftedKilos: {
+      backgroundColor: "#ffffff",
+      borderWidth: 3,
+      borderColor: "#0077B6",
+      borderRadius: 5,
+      height: 100,
+      width: '80%',
+      margin: 50,
+    },
+    liftedKilosText: {
+      fontSize: 18,
+      fontWeight: 'bold',
+      textAlign: 'center',
+      marginTop: 30,
+    },
+  });
