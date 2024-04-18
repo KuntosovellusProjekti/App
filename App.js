@@ -1,15 +1,26 @@
-// App.js
-import React, { useEffect } from "react";
-import { StatusBar } from "expo-status-bar";
-import { useState } from "react";
-import { StyleSheet, View } from "react-native";
-import Navigation from "./components/Navigation/Navigation";
-import { firestore } from "./services/ApiService";
-import { serverTimestamp } from "firebase/firestore";
-import LoginScreen from "./screens/LoginScreen";
-import { signInWithEmailAndPassword } from "firebase/auth";
-import firebase from "firebase/compat/app";
-import Apiservice from "./services/ApiService";
+import React, { useState } from 'react';
+import { StyleSheet, View } from 'react-native';
+import { StatusBar } from 'expo-status-bar';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import LoginScreen from './screens/LoginScreen';
+import SignUpScreen from './screens/SignUpScreen';
+import Navigation from './components/Navigation/Navigation';
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/auth';
+
+const Stack = createNativeStackNavigator();
+
+function AppNavigator() {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="Login">
+        <Stack.Screen name="Login" component={LoginScreen} />
+        <Stack.Screen name="SignUp" component={SignUpScreen} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+}
 
 export default function App() {
   const [logged, setLogged] = useState(false);
@@ -22,6 +33,7 @@ export default function App() {
       console.error(e);
     }
   };
+
   return (
     <View style={styles.container}>
       {logged ? (
@@ -30,7 +42,7 @@ export default function App() {
           <StatusBar style="auto" />
         </>
       ) : (
-        <LoginScreen onLogin={setLogged} />
+        <AppNavigator />
       )}
     </View>
   );

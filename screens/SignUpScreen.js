@@ -9,17 +9,10 @@ import {
   Image,
 } from "react-native";
 import WhiteArrow from "../assets/Icons/WhiteArrow.png";
-import BlackReturnArrow from "../assets/Icons/BlackReturnArrow.png";
 
 const SignUpScreen = () => {
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={styles.backButton}>
-        <View style={styles.backButtonContent}>
-          <Image source={BlackReturnArrow} style={styles.backIcon} />
-          <Text style={styles.backButtonText}>Takaisin</Text>
-        </View>
-      </TouchableOpacity>
 
       <StatusBar barStyle="dark-content" backgroundColor="#fff" />
       <Text style={styles.titleText}>Luo käyttäjätili</Text>
@@ -118,26 +111,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
   },
-  backButton: {
-    position: "absolute",
-    top: 60,
-    left: 30,
-    backgroundColor: "#fff",
-    padding: 10,
-  },
-  backButtonText: {
-    color: "#000",
-    fontSize: 20,
-  },
-  backButtonContent: {
-    flexDirection: "row",
-    alignItems: "center",
-  },
-  backIcon: {
-    marginRight: 15,
-    width: 30,
-    height: 25,
-  },
+
 });
 
 export default SignUpScreen;

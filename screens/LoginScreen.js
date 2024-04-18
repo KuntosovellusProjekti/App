@@ -4,16 +4,14 @@ import { StyleSheet, View, TextInput, TouchableOpacity, Text, StatusBar, Image }
 import WhiteArrow from "../assets/Icons/WhiteArrow.png";
 import WhiteSignUp from "../assets/Icons/WhiteSignUp.png";
 
-const LoginScreen = ({onLogin}) => {
-  const [email, setEmail] = useState('')
-  const [password,setPassword]=useState('')
+const LoginScreen = ({ onLogin, navigation }) => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   const handleLogin = () => {
-    onLogin(email, password)
-  }
+    onLogin(email, password);
+  };
 
-
-  
   return (
     <View style={styles.container}>
       <StatusBar barStyle="dark-content" backgroundColor="#fff" />
@@ -46,7 +44,9 @@ const LoginScreen = ({onLogin}) => {
       
       <Text style={styles.orText}>tai</Text>
       
-      <TouchableOpacity style={styles.button}>
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => navigation.navigate('SignUp')}>
         <View style={styles.buttonContent}>
           <Text style={styles.buttonText}>Luo tili</Text>
           <Image source={WhiteSignUp} style={styles.icon} />
