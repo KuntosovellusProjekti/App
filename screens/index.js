@@ -5,6 +5,7 @@ import MapScreen from "./MapScreen";
 import ProfileScreen from "./ProfileScreen";
 import SettingsScreen from "./SettingsScreen";
 import TrackingScreen from "./TrackingScreen";
+import LoginScreen from "./LoginScreen";
 
 
 export {
@@ -15,4 +16,5 @@ export {
   ProfileScreen,
   SettingsScreen,
   TrackingScreen,
+  LoginScreen,
 };

@@ -12,7 +12,7 @@ const SettingsScreen = () => {
   };
 
   const handleSignOut = () => {
-    // Logic to sign out
+    // Logic to sign outz
   };
 
   const handleDeleteAccount = () => {

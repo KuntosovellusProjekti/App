@@ -1,28 +1,43 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, View, TextInput, TouchableOpacity, Text, StatusBar, Image } from 'react-native';
 
 import WhiteArrow from "../assets/Icons/WhiteArrow.png";
 import WhiteSignUp from "../assets/Icons/WhiteSignUp.png";
 
-const LoginScreen = () => {
+const LoginScreen = ({onLogin}) => {
+  const [email, setEmail] = useState('')
+  const [password,setPassword]=useState('')
+
+  const handleLogin = () => {
+    onLogin(email, password)
+  }
+
+
+  
   return (
     <View style={styles.container}>
       <StatusBar barStyle="dark-content" backgroundColor="#fff" />
       <Text style={styles.titleText}>Kirjaudu sisään</Text>
       
-      <Text style={styles.labelText}>Nimi</Text>
+      <Text style={styles.labelText}>Sähköposti</Text>
       <TextInput
         style={styles.input}
+        placeholder='Sähköposti'
+        value={email}
+        onChangeText={setEmail}
       />
       
       <Text style={styles.labelText}>Salasana</Text>
       <TextInput
         style={styles.input}
+        placeholder='Salasana'
         secureTextEntry
+        value={password}
+        onChangeText={setPassword}
       />
       <Text style={styles.forgotPasswordText}>Unohditko salasanasi?</Text>
       
-      <TouchableOpacity style={styles.button}>
+      <TouchableOpacity style={styles.button} onPress={handleLogin}>
         <View style={styles.buttonContent}>
           <Text style={styles.buttonText}>Kirjaudu sisään</Text>
           <Image source={WhiteArrow} style={styles.icon} />

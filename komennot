@@ -1,5 +1,6 @@
 #MapScreen#
 -npx expo install react-native-maps
+
 - npx expo install expo-location
 
 #HomeScreen#
@@ -7,6 +8,7 @@
 - npx expo install @react-native-async-storage/async-storage
 
 #navigation#
+
 - npm install @react-navigation/native
 - npm install react-native-screens react-native-safe-area-context
 - npm install @react-navigation/bottom-tabs
@@ -14,5 +16,10 @@
 - npm install @react-native-picker/picker
 
 #Calendar#
+
 - npm install --save react-native-calendars
 
+salasanat ja sposti
+
+henrik.junttila@gmail.com
+salasana: kakkahaisee
