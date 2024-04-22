@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
+import { FIREBASE_AUTH } from '../services/ApiService';
 
-const SettingsScreen = () => {
+
+
+const SettingsScreen = ({navigation}) => {
   const [selectedLanguage, setSelectedLanguage] = useState('');
   const [selectedWeightUnit, setSelectedWeightUnit] = useState('');
   const [selectedDistanceUnit, setSelectedDistanceUnit] = useState('');
@@ -70,7 +73,7 @@ const SettingsScreen = () => {
         <TouchableOpacity style={[styles.button, { backgroundColor: '#16BD25' }]} onPress={handleSaveChanges}>
           <Text style={styles.buttonText}>Tallenna muutokset</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={[styles.button, { backgroundColor: '#0077B6' }]} onPress={handleSignOut}>
+        <TouchableOpacity style={[styles.button, { backgroundColor: '#0077B6' }]} onPress= {() => FIREBASE_AUTH.signOut()}>
           <Text style={styles.buttonText}>Kirjaudu ulos</Text>
         </TouchableOpacity>
         <TouchableOpacity style={[styles.button, { backgroundColor: '#B60000' }]} onPress={handleDeleteAccount}>

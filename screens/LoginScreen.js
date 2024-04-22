@@ -1,16 +1,43 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, TextInput, TouchableOpacity, Text, StatusBar, Image } from 'react-native';
-
+import { StyleSheet, View, TextInput, TouchableOpacity, Text, StatusBar, Image} from 'react-native';
 import WhiteArrow from "../assets/Icons/WhiteArrow.png";
 import WhiteSignUp from "../assets/Icons/WhiteSignUp.png";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
+import { FIREBASE_AUTH } from '../services/ApiService';
+import ApiService from '../services/ApiService';
+import Navigation from '../components/Navigation/Navigation';
 
-const LoginScreen = ({ onLogin, navigation }) => {
+
+const LoginScreen = ({Navigation}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
+  const auth = FIREBASE_AUTH;
 
-  const handleLogin = () => {
-    onLogin(email, password);
+  const signIn = async () => {
+    setLoading(true);
+    try {
+      const response = await signInWithEmailAndPassword(auth, email, password);
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
   };
+
+  const signUp = async () => {
+    setLoading(true);
+    try {
+      const response = await createUserWithEmailAndPassword(auth, email, password);
+      console.log(response);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
 
   return (
     <View style={styles.container}>
@@ -22,20 +49,20 @@ const LoginScreen = ({ onLogin, navigation }) => {
         style={styles.input}
         placeholder='Sähköposti'
         value={email}
-        onChangeText={setEmail}
+        onChangeText={(text) => setEmail(text)}
       />
       
       <Text style={styles.labelText}>Salasana</Text>
       <TextInput
         style={styles.input}
         placeholder='Salasana'
-        secureTextEntry
+        secureTextEntry = {true}
         value={password}
         onChangeText={setPassword}
       />
       <Text style={styles.forgotPasswordText}>Unohditko salasanasi?</Text>
       
-      <TouchableOpacity style={styles.button} onPress={handleLogin}>
+      <TouchableOpacity  style={styles.button} onPress={signIn}>
         <View style={styles.buttonContent}>
           <Text style={styles.buttonText}>Kirjaudu sisään</Text>
           <Image source={WhiteArrow} style={styles.icon} />
@@ -46,7 +73,7 @@ const LoginScreen = ({ onLogin, navigation }) => {
       
       <TouchableOpacity
         style={styles.button}
-        onPress={() => navigation.navigate('SignUp')}>
+        onPress={signUp}>
         <View style={styles.buttonContent}>
           <Text style={styles.buttonText}>Luo tili</Text>
           <Image source={WhiteSignUp} style={styles.icon} />

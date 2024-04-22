@@ -1,13 +1,17 @@
-import React, { useState } from 'react';
-import { StyleSheet, View } from 'react-native';
-import { StatusBar } from 'expo-status-bar';
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import LoginScreen from './screens/LoginScreen';
-import SignUpScreen from './screens/SignUpScreen';
-import Navigation from './components/Navigation/Navigation';
-import firebase from 'firebase/compat/app';
-import 'firebase/compat/auth';
+import React, { useEffect, useState } from "react";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import LoginScreen from "./screens/LoginScreen";
+import SignUpScreen from "./screens/SignUpScreen";
+import Navigation from "./components/Navigation/Navigation";
+import { auth } from "./services/ApiService";
+import { onAuthStateChanged } from "firebase/auth";
+import ApiService from "./services/ApiService";
+import { StyleSheet } from "react-native";
+import { User } from "firebase/auth";
+import { FIREBASE_AUTH } from "./services/ApiService";
+import { HomeScreen } from "./screens";
+import { View } from "react-native";
 
 const Stack = createNativeStackNavigator();
 
@@ -23,23 +27,21 @@ function AppNavigator() {
 }
 
 export default function App() {
-  const [logged, setLogged] = useState(false);
+  const [user, setUser] = useState(null);
 
-  const handleLogin = async (email, password) => {
-    try {
-      await firebase.auth().signInWithEmailAndPassword(email, password);
-      setLogged(true);
-    } catch (e) {
-      console.error(e);
-    }
-  };
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(FIREBASE_AUTH, (user) => {
+      console.log("user", user);
+      setUser(user);
+    });
+    return () => unsubscribe();
+  }, []);
 
   return (
     <View style={styles.container}>
-      {logged ? (
+      {user ? (
         <>
           <Navigation />
-          <StatusBar style="auto" />
         </>
       ) : (
         <AppNavigator />
