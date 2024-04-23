@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, TextInput } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, TextInput, Alert } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
+import { FIREBASE_DB } from '../services/ApiService';
+import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
 
 const AddWorkoutScreen = () => {
   const [selectedExercise, setSelectedExercise] = useState('');
@@ -8,10 +10,34 @@ const AddWorkoutScreen = () => {
   const [minutes, setMinutes] = useState(0);
   const [notes, setNotes] = useState('');
 
-  const handleSave = () => {
-    // Logic to save workout data
+  const handleSave = async () => {
+    if (!selectedExercise || (hours === 0 && minutes === 0)) {
+      Alert.alert('Ongelma tallentamisessa', 'Lisää aika ja treeni.');
+      return;
+    }
+
+    try {
+      await addDoc(collection(FIREBASE_DB, "workouts"), {
+        exercise: selectedExercise,
+        durationHours: hours,
+        durationMinutes: minutes,
+        notes: notes,
+        timestamp: serverTimestamp(),
+      });
+      Alert.alert('Treenisi on tallennettu');
+      setSelectedExercise('');
+      setHours(0);
+      setMinutes(0);
+      setNotes('');
+    } catch (error) {
+      console.error('Ongelma tallentamisessa: ', error);
+      Alert.alert('Treenin tallentaminen epäonnistui', 'Yritä uudelleen.');
+    }
   };
 
+ 
+
+  
   const incrementHours = () => {
     setHours(hours === 23 ? 0 : hours + 1);
   };

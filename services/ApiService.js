@@ -1,12 +1,12 @@
 import { initializeApp } from "firebase/app";
-import { getFirestore } from "firebase/firestore";
+import { getFirestore, collection, addDoc } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBXFBcULigwrEICL0dAM-DLAepLiaXe81g",
   authDomain: "kuntosovellus.firebaseapp.com",
   databaseURL:
-    "https://kuntosovellus-default-rtdb.europe-west1.firebasedatabase.app",
+    "https://kuntosovellus-default-rtdb.europe-west1.firebasedatabase.app/",
   projectId: "kuntosovellus",
   storageBucket: "kuntosovellus.appspot.com",
   messagingSenderId: "488407608584",
@@ -18,3 +18,11 @@ export const FIREBASE_APP = initializeApp(firebaseConfig);
 export const FIREBASE_AUTH = getAuth(FIREBASE_APP);
 export const FIREBASE_DB = getFirestore(FIREBASE_APP);
 
+const EXERCISES = 'exercises';
+
+export {
+  getFirestore,
+  collection,
+  addDoc,
+  EXERCISES
+}
