@@ -6,6 +6,7 @@ import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'fire
 import { FIREBASE_AUTH } from '../services/ApiService';
 import ApiService from '../services/ApiService';
 import Navigation from '../components/Navigation/Navigation';
+import LoggingInScreen from './LoggingInScreen';
 
 
 const LoginScreen = ({Navigation}) => {
@@ -25,6 +26,9 @@ const LoginScreen = ({Navigation}) => {
       setLoading(false);
     }
   };
+  if(loading) {
+    return <LoggingInScreen />;
+  }
 
   const signUp = async () => {
     setLoading(true);
@@ -61,6 +65,7 @@ const LoginScreen = ({Navigation}) => {
         onChangeText={setPassword}
       />
       <Text style={styles.forgotPasswordText}>Unohditko salasanasi?</Text>
+      
       
       <TouchableOpacity  style={styles.button} onPress={signIn}>
         <View style={styles.buttonContent}>

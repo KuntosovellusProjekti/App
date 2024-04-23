@@ -12,6 +12,8 @@ import { User } from "firebase/auth";
 import { FIREBASE_AUTH } from "./services/ApiService";
 import { HomeScreen } from "./screens";
 import { View } from "react-native";
+import SettingsScreen from "./screens/SettingsScreen";
+import { getAuth, deleteUser } from "firebase/auth";
 
 const Stack = createNativeStackNavigator();
 
@@ -21,6 +23,7 @@ function AppNavigator() {
       <Stack.Navigator initialRouteName="Login">
         <Stack.Screen name="Login" component={LoginScreen} />
         <Stack.Screen name="SignUp" component={SignUpScreen} />
+        <Stack.Screen name= "Settings" component={SettingsScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
@@ -30,9 +33,9 @@ export default function App() {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(FIREBASE_AUTH, (user) => {
+    const unsubscribe = onAuthStateChanged(FIREBASE_AUTH, (user, currentUser) => {
       console.log("user", user);
-      setUser(user);
+      setUser(user, currentUser);
     });
     return () => unsubscribe();
   }, []);
