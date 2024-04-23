@@ -2,14 +2,15 @@ import React, { useState } from 'react';
 import { StyleSheet, View, TextInput, TouchableOpacity, Text, StatusBar, Image} from 'react-native';
 import WhiteArrow from "../assets/Icons/WhiteArrow.png";
 import WhiteSignUp from "../assets/Icons/WhiteSignUp.png";
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
+import { signInWithEmailAndPassword } from 'firebase/auth';
 import { FIREBASE_AUTH } from '../services/ApiService';
 import ApiService from '../services/ApiService';
 import Navigation from '../components/Navigation/Navigation';
 import LoggingInScreen from './LoggingInScreen';
+import SignUpScreen from './SignUpScreen';
 
 
-const LoginScreen = ({Navigation}) => {
+const LoginScreen = ({navigation}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
@@ -30,17 +31,7 @@ const LoginScreen = ({Navigation}) => {
     return <LoggingInScreen />;
   }
 
-  const signUp = async () => {
-    setLoading(true);
-    try {
-      const response = await createUserWithEmailAndPassword(auth, email, password);
-      console.log(response);
-    } catch (error) {
-      console.error(error);
-    } finally {
-      setLoading(false);
-    }
-  };
+  
 
 
   return (
@@ -78,7 +69,7 @@ const LoginScreen = ({Navigation}) => {
       
       <TouchableOpacity
         style={styles.button}
-        onPress={signUp}>
+        onPress={() => navigation.navigate('SignUp')}>
         <View style={styles.buttonContent}>
           <Text style={styles.buttonText}>Luo tili</Text>
           <Image source={WhiteSignUp} style={styles.icon} />

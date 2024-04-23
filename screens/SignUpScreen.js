@@ -8,25 +8,73 @@ import {
   StatusBar,
   Image,
 } from "react-native";
+import { useState } from "react";
 import WhiteArrow from "../assets/Icons/WhiteArrow.png";
+import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
+import { Alert } from "react-native";
+import { FIREBASE_AUTH } from "../services/ApiService";
+import SigningUpScreen from "./SigningUpScreen";
 
-const SignUpScreen = () => {
+const SignUpScreen = ({ navigation }) => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  const auth = FIREBASE_AUTH;
+
+  const signUp = async () => {
+    if (password !== confirmPassword) {
+      Alert.alert("Passwords do not match");
+      return;
+    }
+    setLoading(true);
+    try {
+      const response = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      console.log(response);
+    } catch (error) {
+      console.error(error);
+      Alert.alert("Error creating account", error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+  if (loading) {
+    return <SigningUpScreen />;
+  }
+
   return (
     <View style={styles.container}>
-
       <StatusBar barStyle="dark-content" backgroundColor="#fff" />
       <Text style={styles.titleText}>Luo käyttäjätili</Text>
 
-      <Text style={styles.labelText}>Käyttäjänimi</Text>
-      <TextInput style={styles.input} />
+      <Text style={styles.labelText}>Sähköposti</Text>
+      <TextInput
+        style={styles.input}
+        value={email}
+        onChangeText={(text) => setEmail(text)}
+      />
 
       <Text style={styles.labelText}>Salasana</Text>
-      <TextInput style={styles.input} />
+      <TextInput
+        style={styles.input}
+        value={password}
+        onChangeText={setPassword}
+        secureTextEntry={true}
+      />
 
       <Text style={styles.labelText}>Salasana uudelleen</Text>
-      <TextInput style={styles.input} />
+      <TextInput
+        style={styles.input}
+        value={confirmPassword}
+        onChangeText={setConfirmPassword}
+        secureTextEntry={true}
+      />
 
-      <TouchableOpacity style={styles.button}>
+      <TouchableOpacity style={styles.button} onPress={signUp}>
         <View style={styles.buttonContent}>
           <Text style={styles.buttonText}>Luo tili</Text>
           <Image source={WhiteArrow} style={styles.icon} />
@@ -111,7 +159,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
   },
-
 });
 
 export default SignUpScreen;
