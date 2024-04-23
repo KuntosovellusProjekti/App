@@ -99,7 +99,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "flex-end",
-    borderWidth: 3,
     borderColor: "#0077B6",
     borderRadius: 1,
     backgroundColor: "#ffffff",

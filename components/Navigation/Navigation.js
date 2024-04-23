@@ -2,13 +2,7 @@ import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from "@react-navigation/native";
-import {
-  TouchableOpacity,
-  Text,
-  View,
-  Image,
-  StyleSheet,
-} from "react-native";
+import { TouchableOpacity, Text, View, Image, StyleSheet } from "react-native";
 import {
   HomeScreen,
   CalendarScreen,
@@ -70,11 +64,31 @@ const BottomTabNavigator = () => {
         },
       })}
     >
-      <Tab.Screen name="Map" component={MapScreen} />
-      <Tab.Screen name="AddWorkout" component={AddWorkoutScreen} />
-      <Tab.Screen name="Home" component={HomeScreen} />
-      <Tab.Screen name="Calendar" component={CalendarScreen} />
-      <Tab.Screen name="Profile" component={ProfileScreen} />
+      <Tab.Screen
+        name="Map"
+        component={MapScreen}
+        options={{ headerShown: false }}
+      />
+      <Tab.Screen
+        name="AddWorkout"
+        component={AddWorkoutScreen}
+        options={{ headerShown: false }}
+      />
+      <Tab.Screen
+        name="Home"
+        component={HomeScreen}
+        options={{ headerShown: false }}
+      />
+      <Tab.Screen
+        name="Calendar"
+        component={CalendarScreen}
+        options={{ headerShown: false }}
+      />
+      <Tab.Screen
+        name="Profile"
+        component={ProfileScreen}
+        options={{ headerShown: false }}
+      />
     </Tab.Navigator>
   );
 };
