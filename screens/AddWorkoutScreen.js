@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, TextInput, Alert } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
-import { FIREBASE_DB } from '../services/ApiService';
 import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
+import { FIREBASE_DB } from '../services/ApiService';
 
 const AddWorkoutScreen = () => {
   const [selectedExercise, setSelectedExercise] = useState('');
   const [hours, setHours] = useState(0);
   const [minutes, setMinutes] = useState(0);
   const [notes, setNotes] = useState('');
+  const [distance, setDistance] = useState('');
+  const [weight, setWeight] = useState('');
 
   const handleSave = async () => {
     if (!selectedExercise || (hours === 0 && minutes === 0)) {
@@ -16,49 +18,44 @@ const AddWorkoutScreen = () => {
       return;
     }
 
+    const payload = {
+      exercise: selectedExercise,
+      durationHours: hours,
+      durationMinutes: minutes,
+      notes: notes,
+      timestamp: serverTimestamp(),
+    };
+
+    if (['juoksu', 'uinti', 'pyoraily'].includes(selectedExercise)) {
+      payload.distance = distance;
+    } else if (selectedExercise === 'kuntosali') {
+      payload.weightLifted = weight;
+    }
+
     try {
-      await addDoc(collection(FIREBASE_DB, "workouts"), {
-        exercise: selectedExercise,
-        durationHours: hours,
-        durationMinutes: minutes,
-        notes: notes,
-        timestamp: serverTimestamp(),
-      });
+      await addDoc(collection(FIREBASE_DB, "workouts"), payload);
       Alert.alert('Treenisi on tallennettu');
       setSelectedExercise('');
       setHours(0);
       setMinutes(0);
       setNotes('');
+      setDistance('');
+      setWeight('');
     } catch (error) {
       console.error('Ongelma tallentamisessa: ', error);
       Alert.alert('Treenin tallentaminen epäonnistui', 'Yritä uudelleen.');
     }
   };
 
- 
-
-  
-  const incrementHours = () => {
-    setHours(hours === 23 ? 0 : hours + 1);
-  };
-
-  const decrementHours = () => {
-    setHours(hours === 0 ? 23 : hours - 1);
-  };
-
-  const incrementMinutes = () => {
-    setMinutes(minutes === 59 ? 0 : minutes + 1);
-  };
-
-  const decrementMinutes = () => {
-    setMinutes(minutes === 0 ? 59 : minutes - 1);
-  };
-
   return (
     <View style={styles.container}>
       <Picker
         selectedValue={selectedExercise}
-        onValueChange={(itemValue, itemIndex) => setSelectedExercise(itemValue)}
+        onValueChange={(itemValue, itemIndex) => {
+          setSelectedExercise(itemValue);
+          setDistance('');
+          setWeight('');
+        }}
       >
         <Picker.Item label="Valitse" value="" />
         <Picker.Item label="Juoksu" value="juoksu" />
@@ -67,21 +64,41 @@ const AddWorkoutScreen = () => {
         <Picker.Item label="Kuntosali" value="kuntosali" />
       </Picker>
 
+      {['juoksu', 'uinti', 'pyoraily'].includes(selectedExercise) && (
+        <TextInput
+          placeholder="Kilometrit"
+          keyboardType="numeric"
+          style={styles.input}
+          value={distance}
+          onChangeText={setDistance}
+        />
+      )}
+
+      {selectedExercise === 'kuntosali' && (
+        <TextInput
+          placeholder="Nostetut kilot yhteensä"
+          keyboardType="numeric"
+          style={styles.input}
+          value={weight}
+          onChangeText={setWeight}
+        />
+      )}
+
       <View style={styles.timeContainer}>
-        <TouchableOpacity onPress={decrementHours}>
-          <Text style={styles.timeButton}>-</Text>
+        <TouchableOpacity onPress={() => setHours(hours === 23 ? 0 : hours + 1)}>
+          <Text style={styles.timeButton}>+</Text>
         </TouchableOpacity>
         <Text style={styles.timeText}>{hours.toString().padStart(2, '0')}</Text>
-        <TouchableOpacity onPress={incrementHours}>
-          <Text style={styles.timeButton}>+</Text>
-        </TouchableOpacity>
-        <Text>:</Text>
-        <TouchableOpacity onPress={decrementMinutes}>
+        <TouchableOpacity onPress={() => setHours(hours === 0 ? 23 : hours - 1)}>
           <Text style={styles.timeButton}>-</Text>
         </TouchableOpacity>
-        <Text style={styles.timeText}>{minutes.toString().padStart(2, '0')}</Text>
-        <TouchableOpacity onPress={incrementMinutes}>
+        <Text>:</Text>
+        <TouchableOpacity onPress={() => setMinutes(minutes === 59 ? 0 : minutes + 1)}>
           <Text style={styles.timeButton}>+</Text>
+        </TouchableOpacity>
+        <Text style={styles.timeText}>{minutes.toString().padStart(2, '0')}</Text>
+        <TouchableOpacity onPress={() => setMinutes(minutes === 0 ? 59 : minutes - 1)}>
+          <Text style={styles.timeButton}>-</Text>
         </TouchableOpacity>
       </View>
 
@@ -105,6 +122,14 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
+  },
+  input: {
+    borderWidth: 1,
+    borderColor: '#ccc',
+    borderRadius: 5,
+    padding: 10,
+    marginBottom: 20,
+    width: '100%',
   },
   timeContainer: {
     flexDirection: 'row',
