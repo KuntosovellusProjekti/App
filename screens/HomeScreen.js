@@ -24,7 +24,7 @@ export default function HomeScreen() {
 
   useEffect(() => {
     const fetchLiftedKilos = async () => {
-      const q = query(collection(FIREBASE_DB, "workouts"), where("weightLifted", ">", 0));
+      const q = query(collection(FIREBASE_DB, "workouts"));
       const querySnapshot = await getDocs(q);
       let totalKilos = 0;
       querySnapshot.forEach((doc) => {
@@ -58,7 +58,7 @@ export default function HomeScreen() {
 
   useEffect(() => {
     const fetchTotalDistance = async () => {
-      const q = query(collection(FIREBASE_DB, "workouts"))
+      const q = query(collection(FIREBASE_DB, "workouts"));
       const querySnapshot = await getDocs(q);
       let totalDistance = 0;
       querySnapshot.forEach((doc) => {
